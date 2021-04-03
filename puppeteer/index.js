@@ -36,7 +36,7 @@ function sleep(ms) {
 
   page.on("response", async (response) => {
     if (response.url().includes("services/dxl/usage/usageConsumptionReport"))
-      console.log(JSON.stringify(await response.json(), null, 2));
+      console.log(JSON.stringify(await response.json()));
   });
 
   await page.click("a[id=maintab-DSL-link]");
