@@ -17,20 +17,22 @@ function sleep(ms) {
   );
 
   await page.click("button[id=InnerloginBtn]");
-  await sleep(4000);
+
+  await page.waitForFunction(
+    'document.querySelectorAll(".spinner.d-none").length == 1'
+  );
 
   await page.focus("#username");
   await page.keyboard.type("YourPhoneNumber");
   await page.focus("#password");
   await page.keyboard.type("YourPassword");
 
-  // await page.waitFor("input[name=login]");
   await page.waitForFunction(
     'document.querySelector("#submitBtn").className ==="btn btn-primary card-btn js-btn-submit2"'
   );
-  await page.click("input[name=login]");
+  await page.click("#submitBtn");
 
-  await sleep(10000);
+  await page.waitForSelector('#maintab-DSL-link')
 
   page.on("response", async (response) => {
     if (response.url().includes("services/dxl/usage/usageConsumptionReport"))
@@ -38,6 +40,7 @@ function sleep(ms) {
   });
 
   await page.click("a[id=maintab-DSL-link]");
+
   await sleep(3000);
   await page.screenshot({ path: "screenshot.png" });
 
