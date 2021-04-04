@@ -1,3 +1,9 @@
+const puppeteer = require("puppeteer");
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 (async () => {
   const browser = await puppeteer.launch();
   // const browser = await puppeteer.launch({ headless: false });
@@ -13,6 +19,7 @@
     'document.querySelectorAll(".spinner.d-none").length == 1'
   );
 
+  console.log('"log" Logging in ...');
   await page.focus("#username");
   await page.keyboard.type("YourPhoneNumber");
   await page.focus("#password");
@@ -24,6 +31,7 @@
   await page.click("#submitBtn");
 
   await page.waitForSelector("#maintab-DSL-link");
+  console.log('"log" Login success!');
 
   page.on("response", async (response) => {
     if (response.url().includes("services/dxl/usage/usageConsumptionReport")) {
@@ -32,6 +40,7 @@
     }
   });
 
+  console.log('"log" Fetching your data');
   await page.click("a[id=maintab-DSL-link]");
 
   await sleep(3000);
