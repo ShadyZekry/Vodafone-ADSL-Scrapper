@@ -1,2 +1,4 @@
-#!/bin/sh
-puppeteer/index.js
+# !/bin/sh
+result=$(node puppeteer/index.js) &&
+
+python analytics.py "$result"
