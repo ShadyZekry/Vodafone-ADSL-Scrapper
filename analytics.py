@@ -1,11 +1,9 @@
+#!/usr/bin/env python
 import sys
 import json
 import datetime
 
-#result = '[{"bucket":[{"usageType":"DATA","bucketBalance":[{"remainingValue":{"amount":25293.0,"units":"MB"},"validFor":{"endDateTime":"2021-04-18T00:00:00.000+0000"},"@type":"Remaining"}],"bucketCounter":[{"value":{"amount":153907.0,"units":"MB"},"@type":"Used"}],"product":[{"name":"ADSL_Mc_HS_30M_175G_Main","@baseType":"Active"}]}],"@type":"DATA"}]'
-
-result = sys.argv[1]
-resultJson = json.loads(result)
+resultJson = json.loads(sys.argv[1])
 
 usageString = resultJson[0]["bucket"][0]["bucketBalance"][0]["remainingValue"]["amount"]
 validForString = resultJson[0]["bucket"][0]["bucketBalance"][0]["validFor"]["endDateTime"].split('T')[0]

@@ -1,20 +1,11 @@
-const puppeteer = require("puppeteer");
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 (async () => {
   const browser = await puppeteer.launch();
   // const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   await page.setViewport({ height: 1080, width: 1920 });
-  await page.goto(
-    "https://web.vodafone.com.eg",
-    {
-      waitUntil: "networkidle2",
-    }
-  );
+  await page.goto("https://web.vodafone.com.eg", {
+    waitUntil: "networkidle2",
+  });
 
   await page.click("button[id=InnerloginBtn]");
 
@@ -32,11 +23,13 @@ function sleep(ms) {
   );
   await page.click("#submitBtn");
 
-  await page.waitForSelector('#maintab-DSL-link')
+  await page.waitForSelector("#maintab-DSL-link");
 
   page.on("response", async (response) => {
-    if (response.url().includes("services/dxl/usage/usageConsumptionReport"))
-      console.log(JSON.stringify(await response.json()));
+    if (response.url().includes("services/dxl/usage/usageConsumptionReport")) {
+      resultJson = await response.json();
+      if (resultJson[0]["@type"] === "DATA") console.log(JSON.stringify(resultJson));
+    }
   });
 
   await page.click("a[id=maintab-DSL-link]");
