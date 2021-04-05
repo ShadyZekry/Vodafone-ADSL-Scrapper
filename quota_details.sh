@@ -3,9 +3,14 @@
 
 # python analytics.py "$result"
 
-result=$(echo '"log" Logging in ...' | awk '{
-    print $0
-    if($0 == "\"log\"") print "\"log\""
-    }' > /dev/tty)
+result=`
+ cat input.txt | tee >(awk '{
+        if($1 == "\"log\""){
+            $1 = "";
+            print $0
+        }
+    }' > /dev/tty) | awk '{if($1 != "\"log\"") print $0;}'
+    `
+
 echo "result is"
 echo $result
