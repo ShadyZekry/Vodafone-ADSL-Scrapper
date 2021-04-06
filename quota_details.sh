@@ -1,16 +1,11 @@
-# !/bin/sh
-# result=$(node puppeteer/index.js) &&
-
-# python analytics.py "$result"
-
+# !/bin/bash
 result=`
- cat input.txt | tee >(awk '{
+ node puppeteer/index.js | tee >(awk '{
         if($1 == "\"log\""){
             $1 = "";
             print $0
         }
     }' > /dev/tty) | awk '{if($1 != "\"log\"") print $0;}'
-    `
+    ` &&
 
-echo "result is"
-echo $result
+python analytics.py "$result"
