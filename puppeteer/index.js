@@ -14,12 +14,13 @@ function sleep(ms) {
   });
 
   await page.click("button[id=InnerloginBtn]");
+  console.log('"log"openning  auth screen...');
 
   await page.waitForFunction(
     'document.querySelectorAll(".spinner.d-none").length == 1'
   );
 
-  console.log('"log" Logging in ...');
+  console.log('"log"Logging in ...');
   await page.focus("#username");
   await page.keyboard.type("YourPhoneNumber");
   await page.focus("#password");
@@ -31,7 +32,7 @@ function sleep(ms) {
   await page.click("#submitBtn");
 
   await page.waitForSelector("#maintab-DSL-link");
-  console.log('"log" Login success!');
+  console.log('"log"Login success!');
 
   page.on("response", async (response) => {
     if (response.url().includes("services/dxl/usage/usageConsumptionReport")) {
@@ -40,7 +41,7 @@ function sleep(ms) {
     }
   });
 
-  console.log('"log" Fetching your data');
+  console.log('"log"Fetching your data');
   await page.click("a[id=maintab-DSL-link]");
 
   await sleep(3000);
