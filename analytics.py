@@ -15,12 +15,14 @@ remaining = int(remainingString) / 1024
 expirationDate = datetime.strptime(validForString, '%Y-%m-%d')
 
 #Helper data
+usagePercentage = usage / (remaining+usage) *100
+remainingPercentage = remaining / (remaining+usage) *100
 remainingDays = (expirationDate - datetime.now()).days
 daysPast = (datetime.now() - expirationDate.replace(month= expirationDate.month-1)).days
 averageDailyUsage = usage/daysPast
 
-print("Used GBs:\t\t%.2f" % usage, "GBs")
-print("Remaining GBs:\t\t%.2f" % remaining, "GBs")
+print("Used GBs:\t\t%.2f" % usage, "GBs (%.1f%%)" % usagePercentage)
+print("Remaining GBs:\t\t%.2f" % remaining, "GBs (%.1f%%)" % remainingPercentage)
 print("Expiration date:\t", expirationDate.strftime('%Y-%m-%d'))
 print("Days left:\t\t", remainingDays, "Day(s)")
 print("Days past:\t\t", daysPast, "Day(s)")
