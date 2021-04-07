@@ -16,8 +16,12 @@ expirationDate = datetime.strptime(validForString, '%Y-%m-%d')
 
 #Helper data
 remainingDays = (expirationDate - datetime.now()).days
+daysPast = (datetime.now() - expirationDate.replace(month= expirationDate.month-1)).days
+averageDailyUsage = usage/daysPast
 
-print("Used GBs:\t\t%.2f" % usage, "GB")
-print("Expiration date:\t", expirationDate)
-print("Remaining GBs:\t\t%.2f" % remaining, "GB")
+print("Used GBs:\t\t%.2f" % usage, "GBs")
+print("Remaining GBs:\t\t%.2f" % remaining, "GBs")
+print("Expiration date:\t", expirationDate.strftime('%Y-%m-%d'))
 print("Days left:\t\t", remainingDays, "Day(s)")
+print("Days past:\t\t", daysPast, "Day(s)")
+print("Average daily usage:\t%.2f" % averageDailyUsage, "GBs/Day")
