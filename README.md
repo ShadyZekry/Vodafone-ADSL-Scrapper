@@ -19,7 +19,7 @@ Using Puppeteer, that uses NodeJS
 
 You need to initialize nodejs in your project before adding the puppeteer direcrtory, to create the `node_modules` folder.
 ```
-$ npm init
+$ npm install
 ```
 
 ## Output Example
